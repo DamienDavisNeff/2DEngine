@@ -20,11 +20,13 @@ function StartupBehavior() {
 }
 
 const frameTime = 1000 / config.targetFrameRate;
+let isPaused = false;
 let priorEndTime = new Date().getTime();
 setInterval(() => {
     const startTime = new Date().getTime();
     // DO THINGS AFTER THIS
-    GenerateNoise(false,true);
+    if(isPaused) return console.log("Paused!");
+    ExperimentalGenerateNoise(false,true);
     // DO THINGS BEFORE THIS
     const endTime = new Date().getTime();
     const frameInfo = {
@@ -42,13 +44,12 @@ setInterval(() => {
             frameRenderTime: `${endTime-startTime} ms`,
             frameRate: `${Math.round(1000/(endTime-priorEndTime))} fps`,
             targetFrameTimeMet: endTime-priorEndTime <= frameTime*1.1,
-            targetFrameRateMet: 1000/(endTime-startTime) >= config.targetFrameRate*0.9,
+            targetFrameRateMet: 1000/(endTime-startTime) >= config.targetFrameRate * 0.9,
         }
     };
     console.log(frameInfo);
     if(!frameInfo.info.targetFrameRateMet) console.warn(`Target frame rate not met! ${frameInfo.info.frameRate}`);
     if(!frameInfo.info.targetFrameTimeMet) console.warn(`Target frame time not met! ${frameInfo.info.totalFrameTime}`);
-
     priorEndTime = endTime;
 }, frameTime);
 
@@ -64,3 +65,7 @@ function ScaleCanvas() {
         return console.log(`Canvas scaled to config resolution with scale ${config.scalingOptions.resolutionScale}`);
     };
 }
+
+document.addEventListener('keydown', (e) => 
+    {if(e.key == 'p') isPaused = !isPaused}
+);

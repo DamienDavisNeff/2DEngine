@@ -9,7 +9,7 @@ const config = {
     scalingOptions: {
         useScreenResolution: true,
         useConfigResolution: false,
-        resolutionScale: 1,
+        resolutionScale:1,
     },
 }
 
@@ -60,8 +60,7 @@ function GeneratePerlinNoise() {
         position = [a/4 % canvas.width, Math.floor(a/4 / canvas.width)];  // in theory this calculates the x & y position of each pixel in the canvas
         // console.log(a/4, position)
 
-        let seed = Math.random();
-        noise = CalculatePerlinNoise([position[0] * seed,position[1] * seed]);
+        noise = CalculatePerlinNoise([position[0] ,position[1] ]);
         data[a] = noise;
         data[a+1] = noise;
         data[a+2] = noise;
@@ -104,7 +103,13 @@ function CalculatePerlinNoise(pos) {
     const u = Fade(xf);
     const v = Fade(yf);
 
-    const result = Lerp(Lerp(dotTopRight, v, dotBottomRight), u, Lerp(dotTopLeft, v, dotBottomLeft)) & 255;
+    let result = Lerp(Lerp(dotTopRight, v, dotBottomRight), u, Lerp(dotTopLeft, v, dotBottomLeft));
+
+    result = Math.min(Math.max(result,-1.0),1.0);
+    result = (result + 1.0) / 2.0;
+    result *= 255;
+    result = Math.min(Math.max(result,0.0),255.0);
+
     // console.log(result);
     return result;
 }

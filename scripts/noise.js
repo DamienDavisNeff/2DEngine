@@ -44,6 +44,8 @@ function CalculatePerlinNoise(pos) {
 
     // based on an article found at https://rtouti.github.io/graphics/perlin-noise-algorithm
    
+// future me: remove xf and yf, use base X & Y to see if that fixes smoothijg
+// such precision seems unnecessary?? maybe its important but idk
     const X = Math.floor(pos[0]) & 255;
     const Y = Math.floor(pos[1]) & 255;
     const xf = pos[0] - Math.floor(pos[0]);

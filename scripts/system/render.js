@@ -1,5 +1,7 @@
 const canvas = document.getElementById('canvasContent');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', {
+    willReadFrequently: true
+});
 
 const config = {
     targetFrameRate: 30,

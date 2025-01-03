@@ -1,34 +1,3 @@
-const canvas = document.getElementById('canvasContent');
-const ctx = canvas.getContext('2d');
-
-const config = {
-    resolution:{
-        width: 256,
-        height: 256,
-    },
-    scalingOptions: {
-        useScreenResolution: true,
-        useConfigResolution: false,
-        resolutionScale:1,
-    },
-}
-
-window.onload = ScaleCanvas();
-function ScaleCanvas() {
-    if(config.scalingOptions.useScreenResolution) {
-        canvas.width = window.innerWidth * config.scalingOptions.resolutionScale;
-        canvas.height = window.innerHeight * config.scalingOptions.resolutionScale;
-        return console.log(`Canvas scaled to screen resolution with scale ${config.scalingOptions.resolutionScale}`);
-    }
-    if(config.scalingOptions.useConfigResolution) {
-        canvas.width = config.resolution.width * config.scalingOptions.resolutionScale;
-        canvas.height = config.resolution.height * config.scalingOptions.resolutionScale;
-        return console.log(`Canvas scaled to config resolution with scale ${config.scalingOptions.resolutionScale}`);
-    };
-}
-
-// GenerateNoise(true, false);
-
 function GenerateNoise(useColor, useAlpha) {
 
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -49,7 +18,6 @@ function GenerateNoise(useColor, useAlpha) {
     ctx.putImageData(imageData, 0, 0);
 }
 
-GeneratePerlinNoise();
 function GeneratePerlinNoise() {
 
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -59,6 +27,7 @@ function GeneratePerlinNoise() {
 
         position = [a/4 % canvas.width, Math.floor(a/4 / canvas.width)];  // in theory this calculates the x & y position of each pixel in the canvas
         // console.log(a/4, position)
+
 
         noise = CalculatePerlinNoise([position[0] ,position[1] ]);
         data[a] = noise;

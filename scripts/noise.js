@@ -39,6 +39,7 @@ function GeneratePerlinNoise() {
 }
 
 
+// Something is broken about this noise, I'm pretty sure.
 function CalculatePerlinNoise(pos) { 
 
     // based on an article found at https://rtouti.github.io/graphics/perlin-noise-algorithm

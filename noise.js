@@ -3,8 +3,8 @@ const ctx = canvas.getContext('2d');
 
 const config = {
     resolution:{
-        width: 512,
-        height: 512,
+        width: 256,
+        height: 256,
     },
     scalingOptions: {
         useScreenResolution: true,
@@ -60,7 +60,8 @@ function GeneratePerlinNoise() {
         position = [a/4 % canvas.width, Math.floor(a/4 / canvas.width)];  // in theory this calculates the x & y position of each pixel in the canvas
         // console.log(a/4, position)
 
-        noise = CalculatePerlinNoise([position[0]*Math.random(),position[1]*Math.random()]);
+        let seed = Math.random();
+        noise = CalculatePerlinNoise([position[0] * seed,position[1] * seed]);
         data[a] = noise;
         data[a+1] = noise;
         data[a+2] = noise;

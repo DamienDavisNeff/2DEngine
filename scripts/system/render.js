@@ -31,7 +31,7 @@ setInterval(() => {
 
     // MAIN RENDERING CONTENT 👇
 
-    RenderFrame();
+    // RenderFrame();
 
     // MAIN RENDERING CONTENT 👆
 

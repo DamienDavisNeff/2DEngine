@@ -1,11 +1,13 @@
 
 
+RenderFrame();
+
 function RenderFrame() {
 
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let data = imageData.data;
 
-    let circleData = CalculateCircleData([(Math.random() * 100) + 50,(Math.random() * 100) + 50],(Math.random() * 100) + 50);
+    let circleData = CalculateCircleData([(Math.random() * 50) + 100,(Math.random() * 50) + 100],(Math.random() * 50) + 20);
     let circleDataSet = new Set(circleData.map(pos => pos.join(',')));
     
     for(let a = 0; a < data.length; a += 4) {

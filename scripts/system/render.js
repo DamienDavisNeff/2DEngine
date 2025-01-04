@@ -12,25 +12,33 @@ const config = {
     scalingOptions: {
         useScreenResolution: true,
         useConfigResolution: false,
-        resolutionScale:0.25,
+        resolutionScale:0.5,
     },
 }
+const frameTime = 1000 / config.targetFrameRate; // calculates frameTime from FPS
 
 window.onload = StartupBehavior();
 function StartupBehavior() {
     ScaleCanvas();
 }
 
-const frameTime = 1000 / config.targetFrameRate;
-let isPaused = false;
-let priorEndTime = new Date().getTime();
+let isPaused = false; // Declared globally to properly control it via events
+let priorEndTime = new Date().getTime(); // Used in render loop to calculate total frame time from start
 setInterval(() => {
-    const startTime = new Date().getTime();
-    // DO THINGS AFTER THIS
-    if(isPaused) return console.log("Paused!");
-    ExperimentalGenerateNoise(false,true);
-    // DO THINGS BEFORE THIS
+
+    const startTime = new Date().getTime(); // Used to calculate frame debug info
+    if(isPaused) return console.log("Paused!"); // Used to prevent rendering while paused
+
+    // MAIN RENDERING CONTENT 👇
+
+    RenderFrame();
+
+    // MAIN RENDERING CONTENT 👆
+
+    // FRAME DEBUG INFO
+
     const endTime = new Date().getTime();
+
     const frameInfo = {
         times:{
             startTime: startTime,
@@ -49,10 +57,15 @@ setInterval(() => {
             targetFrameRateMet: 1000/(endTime-startTime) >= config.targetFrameRate * 0.9,
         }
     };
+
     console.log(frameInfo);
     if(!frameInfo.info.targetFrameRateMet) console.warn(`Target frame rate not met! ${frameInfo.info.frameRate}`);
     if(!frameInfo.info.targetFrameTimeMet) console.warn(`Target frame time not met! ${frameInfo.info.totalFrameTime}`);
+
     priorEndTime = endTime;
+
+    // END FRAME DEBUG INFO
+
 }, frameTime);
 
 function ScaleCanvas() {

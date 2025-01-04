@@ -12,7 +12,7 @@ const config = {
     scalingOptions: {
         useScreenResolution: true,
         useConfigResolution: false,
-        resolutionScale:0.5,
+        resolutionScale:0.25,
     },
 }
 const frameTime = 1000 / config.targetFrameRate; // calculates frameTime from FPS

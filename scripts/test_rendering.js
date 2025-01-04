@@ -7,13 +7,6 @@ function RenderFrame() {
 
     let circleData = CalculateCircleData([(Math.random() * 100) + 50,(Math.random() * 100) + 50],(Math.random() * 100) + 50);
 
-    // clear background
-    for(let a = 0; a < data.length; a += 4) {
-        data[a] = 255;
-        data[a+1] = 255;
-        data[a+2] = 255;
-        data[a+3] = 255;
-    }
     
     for(let a = 0; a < data.length; a += 4) {
 
@@ -23,6 +16,11 @@ function RenderFrame() {
         const circleDataMatch = circleData.some(
             (circlePos) => circlePos[0] == position[0] && circlePos[1] == position[1]
         );
+
+        data[a] = 255;
+        data[a+1] = 255;
+        data[a+2] = 255;
+        data[a+3] = 255;
 
         if(circleDataMatch) {
             data[a] = 255;

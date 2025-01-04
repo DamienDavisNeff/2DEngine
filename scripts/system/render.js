@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d', {
 });
 
 const config = {
-    targetFrameRate: 30,
+    targetFrameRate: 240,
     resolution:{
         width: 256,
         height: 256,

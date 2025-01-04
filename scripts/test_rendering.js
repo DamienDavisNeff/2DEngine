@@ -6,16 +6,14 @@ function RenderFrame() {
     let data = imageData.data;
 
     let circleData = CalculateCircleData([(Math.random() * 100) + 50,(Math.random() * 100) + 50],(Math.random() * 100) + 50);
-
+    let circleDataSet = new Set(circleData.map(pos => pos.join(',')));
     
     for(let a = 0; a < data.length; a += 4) {
 
         position = [a/4 % canvas.width, Math.floor(a/4 / canvas.width)];  // in theory this calculates the x & y position of each pixel in the canvas
         // console.log(position);
 
-        const circleDataMatch = circleData.some(
-            (circlePos) => circlePos[0] == position[0] && circlePos[1] == position[1]
-        );
+        const circleDataMatch = circleDataSet.has(position.join(','));
 
         data[a] = 255;
         data[a+1] = 255;

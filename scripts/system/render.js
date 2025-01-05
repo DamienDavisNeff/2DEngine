@@ -58,6 +58,12 @@ function AnimationLoop(timestamp) {
 
 }
 
+window.onload = StartupBehavior();
+function StartupBehavior() {
+    ScaleCanvas();
+    requestAnimationFrame(AnimationLoop);
+}
+
 document.addEventListener('keydown', (e) => 
     {if(e.key == 'p') isPaused = !isPaused}
 );

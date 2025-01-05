@@ -17,12 +17,6 @@ const config = {
     logDebugInfo: false,
 }
 
-window.onload = StartupBehavior();
-function StartupBehavior() {
-    ScaleCanvas();
-    requestAnimationFrame(AnimationLoop);
-}
-
 function ScaleCanvas() {
     if(config.scalingOptions.useScreenResolution) {
         canvas.width = window.innerWidth * config.scalingOptions.resolutionScale;

@@ -1,5 +1,11 @@
 class Entity {
-    constructor(position = [], size = [], renderData = []) {
+    constructor(
+        position = [0,0], 
+        size = [0,0], 
+        renderData = [
+            [0,0,0,0]
+        ]
+    ) {
         this.position = position;
         this.size = size;
         this.renderData = renderData;

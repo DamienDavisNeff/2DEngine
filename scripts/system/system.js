@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d', {
 });
 
 const config = {
-    targetFrameRate: 30,
+    targetFrameRate: 60 ,
     resolution:[
         256,
         256
@@ -14,7 +14,7 @@ const config = {
         useConfigResolution: true,
         resolutionScale:1,
     },
-    logDebugInfo: false,
+    logDebugInfo: true,
 }
 
 function ScaleCanvas() {

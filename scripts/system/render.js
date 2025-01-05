@@ -8,16 +8,18 @@ function AnimationLoop(timestamp) {
 
     const startTime = new Date().getTime(); // Used to calculate frame debug info
 
-    if(isPaused) return console.log("Paused!"); // Used to prevent rendering while paused
+    if(isPaused) {
+        console.log("Paused!");
+        return requestAnimationFrame(AnimationLoop);
+    } // Used to prevent rendering while paused
     RefreshFrame(); // Clears the canvas
     
     // MAIN RENDERING CONTENT 👇
 
     ExampleEntity2.position = [ExampleEntity2.position[0]+1, ExampleEntity2.position[1]];
     if(ExampleEntity2.position[0] > canvas.width) ExampleEntity2.position = [0, ExampleEntity2.position[1]];
+    UpdatePhysicObject(ExamplePhysicObject);
 
-    RenderEntity(ExampleEntity);
-    RenderEntity(ExampleEntity2);
     
     // MAIN RENDERING CONTENT 👆
 

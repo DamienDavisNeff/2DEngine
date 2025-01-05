@@ -35,6 +35,7 @@ UpdateEntity(ExampleEntity2, ExampleEntity2.position, GetTextureSize("/images/en
 // HOWEVER both the size & render data are immediately updated using a texture file
 // You CANNOT use those functions INSIDE of the Constructor
 // You MUST use those functions OUTSIDE of the Constructor
+// This is because async functions are not supported in constructors
 
 async function UpdateEntity(entity, newPosition = [], newSize = [], newRenderData = []) {
     entity.position = await newPosition;

@@ -19,6 +19,7 @@ function AnimationLoop(timestamp) {
     ExampleEntity2.position = [ExampleEntity2.position[0]+1, ExampleEntity2.position[1]];
     if(ExampleEntity2.position[0] > canvas.width) ExampleEntity2.position = [0, ExampleEntity2.position[1]];
     UpdatePhysicObject(ExamplePhysicObject);
+    UpdatePhysicObject(ExamplePhysicObject2);
 
     
     // MAIN RENDERING CONTENT 👆

@@ -1,7 +1,7 @@
 // hmm 🤔
 
 const physicsConfig = {
-    gravityScale: 0.00098,
+    gravityScale: 0,
     terminalVelocityScale: 10, // multiplied by mass to get terminal velocity
     enforceTerminalVelocity: true
 }
@@ -19,6 +19,8 @@ class PhysicObject {
         velocity = [0,0], 
         restitution = 0, // "bounciness"
         friction = 0, 
+        collision = false,
+        collisionType = 0, // 0 for rectangle, 1 for circle
     ) {
         this.position = position;
         this.size = size;
@@ -29,6 +31,8 @@ class PhysicObject {
         this.velocity = velocity;
         this.restitution = restitution;
         this.friction = friction;
+        this.collision = collision;
+        this.collisionType = collisionType;
     }
 } // This specifically uses the same order as the Entity class instead of the one that makes the most sense, to reuse the same rendering code later
 
@@ -36,12 +40,19 @@ let allPhysicObjects = [];
 
 const ExamplePhysicObject = new PhysicObject(
     [10,10],
-    [3,3],
+    [5,10],
     [
-        [0,0,0,0],[0,0,0,255],[0,0,0,0],
-        [0,0,0,255],[0,0,0,255],[0,0,0,255],
-        [0,0,0,0],[0,0,0,255],[0,0,0,0],
-        [0,0,0,0],[0,0,0,255],[0,0,0,0],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
     ],
     [10,10],
     0,
@@ -49,6 +60,33 @@ const ExamplePhysicObject = new PhysicObject(
     [0,0],
     0,
     0.05,
+    true,
+    0
+);
+const ExamplePhysicObject2 = new PhysicObject(
+    [13,12],
+    [5,10],
+    [
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+        [0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],[0,0,0,255],
+    ],
+    [10,10],
+    0,
+    1,
+    [0,0],
+    0,
+    0.05,
+    true,
+    0
 );
 
 function AddPhysicObject(object) {
@@ -86,3 +124,13 @@ function EnforceTerminalVelocity(object) {
 function ApplyForce(object, force) {
     object.velocity = [object.velocity[0] + force[0], object.velocity[1] + force[1]];
 }
+
+// TODO
+// COLLISION
+// COLLISION RESPONSE
+// DELTA TIME SHIT
+
+function CollisionDetection(obj1, obj2) {
+    
+}
+

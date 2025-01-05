@@ -1,8 +1,4 @@
-
-
-RenderFrame();
-
-function RenderFrame() {
+function RenderCircle() {
 
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let data = imageData.data;
@@ -17,16 +13,16 @@ function RenderFrame() {
 
         const circleDataMatch = circleDataSet.has(position.join(','));
 
-        data[a] = 255;
-        data[a+1] = 255;
-        data[a+2] = 255;
-        data[a+3] = 255;
-
+        if(data[a] != 255) data[a] = 255;
+        if(data[a+1] != 255) data[a+1] = 255;
+        if(data[a+2] != 255) data[a+2] = 255;
+        if(data[a+3] != 255) data[a+3] = 255;
+        
         if(circleDataMatch) {
-            data[a] = 255;
-            data[a+1] = 0;
-            data[a+2] = 0;
-            data[a+3] = 255;
+            if(data[a] != 255) data[a] = 255;
+            if(data[a+1] != 0) data[a+1] = 0;
+            if(data[a+2] != 0) data[a+2] = 0;
+            if(data[a+3] != 255) data[a+3] = 255;
         }
 
     }
@@ -38,19 +34,6 @@ function CalculateCircleData(centerPos = [0, 0], radius = 200) {
 
     let circleData = [];
     circleData.push(centerPos);
-
-    for(let a = 0; a <= radius; a++) {
-        circleData.push([centerPos[0]+a,centerPos[1]]);
-    }
-    for(let b = 0; b <= radius; b++) {
-        circleData.push([centerPos[0]-b,centerPos[1]]);
-    }
-    for(let c = 0; c <= radius; c++) {
-        circleData.push([centerPos[0],centerPos[1]+c]);
-    }
-    for(let d = 0; d <= radius; d++) {
-        circleData.push([centerPos[0],centerPos[1]-d]);
-    }
 
     let circumference = Math.floor(2 * Math.PI * radius);
     for(let a = 0; a <= circumference; a++) {

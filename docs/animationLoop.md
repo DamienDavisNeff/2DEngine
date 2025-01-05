@@ -1,6 +1,6 @@
 # Rendering
 
-The render loop contains all functions that should run every frame. 
+The `animationLoop` contains all functions that should run every frame. 
 
 ```js
 function AnimationLoop(timestamp) {
@@ -31,3 +31,5 @@ The configuration for your loop is found in a separate file: `system.js` found i
     * `resolutionScale` is multiplied by the determined resolution (for performance)
         * `resolutionScale:0.25`: A float
 * `logDebugInfo` determines whether or not debug info, such as frame times. 
+
+# This page is incomplete ⚠️

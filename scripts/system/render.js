@@ -3,6 +3,40 @@ const frameTime = 1000 / config.targetFrameRate; // calculates frameTime from FP
 let isPaused = false; // Declared globally to properly control it via events
 let priorEndTime = new Date().getTime(); // Used in render loop to calculate total frame time from start
 
+
+// INIT GAME OBJECTS
+const Player = new Entity(
+    [5,9],
+    [1,1],
+    [
+        [0,0,0,0],
+    ]
+)
+UpdateEntity(Player, Player.position, GetTextureSize("/images/entities/ExampleEntity2.png",0), GetTextureData("/images/entities/ExampleEntity2.png"));
+
+const PlayerPhysics = new PhysicsObject(
+    Player,
+    Player.position,
+    0,
+    1,
+    [0,0],
+    0,
+    0.05,
+    false,
+    0,
+    true,
+)
+AddPhysicObject(PlayerPhysics);
+
+const GroundEntity = new Entity(
+    [5,200],
+    [1,1],
+    [
+        [0,0,0,255],
+    ],
+)
+UpdateEntity(GroundEntity, GroundEntity.position, GetTextureSize("/images/entities/GroundEntity.png",0), GetTextureData("/images/entities/GroundEntity.png"));
+
 function AnimationLoop(timestamp) {
 
 
@@ -16,11 +50,9 @@ function AnimationLoop(timestamp) {
     
     // MAIN RENDERING CONTENT 👇
 
-    ExampleEntity2.position = [ExampleEntity2.position[0]+1, ExampleEntity2.position[1]];
-    if(ExampleEntity2.position[0] > canvas.width) ExampleEntity2.position = [0, ExampleEntity2.position[1]];
-    UpdatePhysicObject(ExamplePhysicObject);
-    UpdatePhysicObject(ExamplePhysicObject2);
-
+    RenderEntity(Player);
+    // RenderEntity(GroundEntity);
+    UpdatePhysicObjects();
     
     // MAIN RENDERING CONTENT 👆
 

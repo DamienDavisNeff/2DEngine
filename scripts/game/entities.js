@@ -53,18 +53,34 @@ function RenderEntity(entity) {
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let data = imageData.data;
 
+    let solidColor = entity.renderData[0] === "solid" ? true : false;
+    if(solidColor) solidColorData = entity.renderData[1];
+
     for(let a = 0; a < data.length; a += 4) {
+
         position = [a/4 % canvas.width, Math.floor(a/4 / canvas.width)]; // this calculates the x & y position of each pixel in the canvas
 
-        for(let b = 0; b < entity.renderData.length; b++) {
+        renderLength = entity.renderData[0] === "solid" ? entity.size[0] * entity.size[1] : entity.renderData.length;
+
+        for(let b = 0; b < renderLength; b++) {
 
             renderPosition = [b % entity.size[0], Math.floor(b / entity.size[0])]; // This calculates the x & y position of each piece of rendering data relative to the size
 
             if(position[0] == entity.position[0]+renderPosition[0] && position[1] == entity.position[1]+renderPosition[1]) {
+
+                if(solidColor) {
+                    data[a] = solidColorData[0];
+                    data[a+1] = solidColorData[1];
+                    data[a+2] = solidColorData[2];
+                    data[a+3] = solidColorData[3];
+                    continue;
+                }
+
                 data[a] = entity.renderData[b][0];
                 data[a+1] = entity.renderData[b][1];
                 data[a+2] = entity.renderData[b][2];
                 data[a+3] = entity.renderData[b][3];
+
             }
         }
 

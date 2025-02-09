@@ -1,3 +1,9 @@
+const physicsConfig = {
+    gravityScale: 0,
+    terminalVelocityScale: 10, // multiplied by mass to get terminal velocity
+    enforceTerminalVelocity: true
+}
+
 class PhysicsObject { 
     constructor(
         Entity = new Entity(
@@ -14,7 +20,8 @@ class PhysicsObject {
         restitution = 0, // "bounciness"
         friction = 0, // between 0-1, how much the velocity should decrease over time
         collision = false,
-        collisionType = 0, // 0 for rectangle, 1 for circle
+        collisionType = 0, // 0 for rectangle, 1 for circle | rect only for now, circle unimplemented
+        gravity = false, // apply gravity
     ) {
         this.Entity = Entity;
         this.precisePosition = precisePosition;
@@ -25,6 +32,7 @@ class PhysicsObject {
         this.friction = friction;
         this.collision = collision;
         this.collisionType = collisionType;
+        this.gravity = gravity;
     }
 }
 
@@ -43,6 +51,8 @@ function UpdatePhysicObjects() {
 
         // rotation
         // restitution
+
+        ApplyGravity(currentObject);
 
         currentObject.velocity = [
             currentObject.velocity[0] - (currentObject.friction * currentObject.velocity[0]), 
@@ -83,4 +93,44 @@ function ApplyForce(object, force = [0,0]) {
         object.velocity[0] + force[0],
         object.velocity[1] + force[1]
     ];
+}
+
+function ApplyGravity(object) {
+    
+    if(!object.gravity) return;
+    ApplyForce(object,[0, object.mass * physicsConfig.gravityScale]);
+
+}
+
+function CheckAllCollisions() {
+    let collisions = [];
+    for(let a = 0; a < allPhysicObjects.length; a++) {
+        let currentObject = allPhysicObjects[a];
+        for(let b = a+1; b < allPhysicObjects.length; b++) {
+            let otherObject = allPhysicObjects[b];
+            if(CheckRectangleCollision(currentObject, otherObject)) collisions.push([currentObject,otherObject]);
+        }
+    }
+    return collisions;
+}
+function CheckRectangleCollision(obj1,obj2) {
+
+    let a = obj1.Entity.position;
+    let b = obj2.Entity.position;
+    let aSize = obj1.Entity.size;
+    let bSize = obj2.Entity.size;
+
+    return (
+        a[0] < b[0] + bSize[0] && // A left is left of B right
+        a[0] + aSize[0] > b[0] && // A right is right of B left
+        a[1] < b[1] + bSize[1] && // A top is top of B bottom
+        a[1] + aSize[1] > b[1] // A top is bottom of B top
+    );
+
+}
+function CheckCircleCollision(obj1,obj2) {
+    return false; // temporary, unimplemented
+}
+function CheckHybridCollision(obj1,obj2) {
+    return false; // temporary, unimplemented
 }

@@ -14,7 +14,7 @@ const config = {
         useConfigResolution: true,
         resolutionScale:1,
     },
-    logDebugInfo: true,
+    logDebugInfo: false,
 }
 
 function ScaleCanvas() {
